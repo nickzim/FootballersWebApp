@@ -18,15 +18,15 @@ public class PlayersServiceImpl implements PlayersService {
         ArrayList<Player> list = new ArrayList<Player>();
 
         try {
-            String query = "SELECT players.*, position.name AS posname FROM players LEFT JOIN position ON players.position_id = position.id " +
-                    "                                                     LEFT JOIN clubs ON players.club_id = clubs.id WHERE clubs.name = (?);";
+            String query = "SELECT footballers.*, positions.name AS posname FROM footballers LEFT JOIN positions ON footballers.position_id = positions.id " +
+                    "                                                     LEFT JOIN clubs ON footballers.club_id = clubs.id WHERE clubs.name = (?);";
             PreparedStatement statement = dbConnection.getConnection().prepareStatement(query);
 
             statement.setString(1,club);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                list.add(new Player(resultSet.getString("name"),
+                list.add(new Player(resultSet.getString("playername"),
                                     resultSet.getInt("age"),
                                     resultSet.getString("country"),
                                     resultSet.getString("posname"),
@@ -38,7 +38,6 @@ public class PlayersServiceImpl implements PlayersService {
             dbConnection.closeConnection();
         }
 
-        log.info("Request for get list of players success");
         return list;
     }
 
@@ -50,7 +49,7 @@ public class PlayersServiceImpl implements PlayersService {
             int position_id = 0, club_id = 0;
             ResultSet resultSet;
 
-            String query = "SELECT id FROM position WHERE name = (?);";
+            String query = "SELECT id FROM positions WHERE name = (?);";
             PreparedStatement statement = dbConnection.getConnection().prepareStatement(query);
             statement.setString(1, position);
             resultSet = statement.executeQuery();
@@ -71,7 +70,7 @@ public class PlayersServiceImpl implements PlayersService {
                 return false;
             }
 
-            query = "INSERT INTO players VALUES ( (?), (?), (?), (?), (?))";
+            query = "INSERT INTO footballers VALUES ( (?), (?), (?), (?), (?))";
             statement = dbConnection.getConnection().prepareStatement(query);
             statement.setString(1, name);
             statement.setInt(2,age);

@@ -34,11 +34,11 @@ public class ClubsServiceImpl implements ClubsService {
 
         } catch (SQLException e) {
             log.error("Error request for get all clubs list " + e.getMessage());
+            return list;
         } finally {
             dbConnection.closeConnection();
         }
 
-        log.info("Request for get all clubs list success");
         return list;
     }
 
@@ -48,7 +48,7 @@ public class ClubsServiceImpl implements ClubsService {
 
         try {
 
-            String query = "INSERT INTO clubs VALUES (?)";
+            String query = "INSERT INTO clubs (name) VALUES (?)";
 
             PreparedStatement statement = dbConnection.getConnection().prepareStatement(query);
             statement.setString(1,name);
