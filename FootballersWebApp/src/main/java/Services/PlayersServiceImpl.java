@@ -48,21 +48,16 @@ public class PlayersServiceImpl implements PlayersService {
         try {
             int position_id = 0, club_id = 0;
             ResultSet resultSet;
+            PreparedStatement statement;
 
-            String query = "SELECT id FROM positions WHERE name = (?);";
-            PreparedStatement statement = dbConnection.getConnection().prepareStatement(query);
-            statement.setString(1, position);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()){
-                position_id = resultSet.getInt("id");
-            }
-
-            query = "SELECT id FROM clubs WHERE name = (?);";
+            String query = "SELECT clubs.id AS club_id, positions.id AS position_id FROM clubs, positions WHERE clubs.name = (?) AND positions.name = (?);";
             statement = dbConnection.getConnection().prepareStatement(query);
-            statement.setString(1, club);
+            statement.setString(1,club);
+            statement.setString(2,position);
             resultSet = statement.executeQuery();
             if (resultSet.next()){
-                club_id =  resultSet.getInt("id");
+                position_id = resultSet.getInt("position_id");
+                club_id = resultSet.getInt("club_id");
             }
 
             if (position_id == 0 || club_id == 0){
