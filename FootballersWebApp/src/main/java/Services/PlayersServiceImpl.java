@@ -86,4 +86,26 @@ public class PlayersServiceImpl implements PlayersService {
         return true;
     }
 
+    @Override
+    public boolean deletePlayer(String name) {
+        DataBaseConnection dbConnection = DataBaseConnection.getInstance();
+
+        try {
+            String query = "DELETE FROM footballers WHERE playername = (?)";
+
+            PreparedStatement statement = dbConnection.getConnection().prepareStatement(query);
+            statement.setString(1,name);
+            statement.executeUpdate();
+
+        } catch (SQLException e){
+            log.error("Error deleting player " + e.getMessage());
+            return false;
+        } finally {
+            dbConnection.closeConnection();
+        }
+
+        log.info("Request to delete player success");
+        return true;
+    }
+
 }

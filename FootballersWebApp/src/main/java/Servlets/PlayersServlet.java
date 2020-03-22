@@ -4,7 +4,10 @@ import Model.Player;
 import Services.PlayersService;
 import Services.PlayersServiceImpl;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
@@ -32,7 +35,7 @@ public class PlayersServlet extends javax.servlet.http.HttpServlet {
                 out.println("<html>");
                 out.println("<head><title>" + res.getString("success_responce") + "</title></head>");
                 out.println("<body>");
-                out.println("Игрок добавлен");
+                out.println(res.getString("success_responce"));
                 out.println("</body>");
                 out.println("</html>");
             }
@@ -43,13 +46,14 @@ public class PlayersServlet extends javax.servlet.http.HttpServlet {
                 out.println("<html>");
                 out.println("<head><title>" + res.getString("error_responce") + "</title></head>");
                 out.println("<body>");
-                out.println("Ошибка при добавлении игрока");
+                out.println(res.getString("error_responce"));
                 out.println("</body>");
                 out.println("</html>");
             }
         }
 
     }
+
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String lang = request.getParameter("lang");
@@ -80,6 +84,39 @@ public class PlayersServlet extends javax.servlet.http.HttpServlet {
             out.println("</table>");
             out.println("</body>");
             out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String lang = request.getParameter("lang");
+        ResourceBundle res = ResourceBundle.getBundle("Players", "en".equalsIgnoreCase(lang) ? Locale.ENGLISH : Locale.getDefault());
+
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+
+        if(service.deletePlayer(request.getParameter("name")))
+        {
+            try(PrintWriter out = response.getWriter()) {
+                out.println("<html>");
+                out.println("<head><title>" + "Игрок удален" + "</title></head>");
+                out.println("<body>");
+                out.println("Игрок удален");
+                out.println("</body>");
+                out.println("</html>");
+            }
+
+        } else {
+
+            try(PrintWriter out = response.getWriter()) {
+                out.println("<html>");
+                out.println("<head><title>" + "Ощибка при удалении игрока" + "</title></head>");
+                out.println("<body>");
+                out.println("Ощибка при удалении игрока");
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
     }
 

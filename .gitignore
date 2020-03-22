@@ -41,4 +41,5 @@ local.properties
 .idea/dictionaries
 .idea/libraries
 
+.tomcat/logs
 

@@ -9,4 +9,6 @@ public interface ClubsService {
     ArrayList<Club> getAllClubs();
 
     boolean addClub(String name);
+
+    boolean deleteClub(String name);
 }

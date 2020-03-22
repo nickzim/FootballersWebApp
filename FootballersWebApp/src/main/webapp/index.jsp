@@ -11,7 +11,7 @@
 <p><b>Получить список игроков команды: </b><br>
   <form>
 <p><input placeholder="Название клуба" name="club"></p>
-<p><input type="submit" formaction="/client/players" value="Отправить запрос"></p>
+<p><input type="submit" formaction="/players" value="Отправить запрос"></p>
 </form>
 </p>
 
@@ -22,7 +22,7 @@
 <p><input placeholder="Гражданство" name="country"></p>
 <p><input placeholder="Позиция" name="position"></p>
 <p><input placeholder="Название клуба" name="club"></p>
-<p><input type="submit" formaction="/client/players" value="Отправить запрос" formmethod="post"></p>
+<p><input type="submit" formaction="/players" value="Отправить запрос" formmethod="post"></p>
 </form>
 </p>
 
@@ -32,14 +32,14 @@
 
 <p><b>Получить список клубов: </b><br>
   <form>
-<p><input type="submit" formaction="/client/clubs" value="Отправить запрос"></p>
+<p><input type="submit" formaction="/clubs" value="Отправить запрос"></p>
 </form>
 </p>
 
 <p><b>Добавить клуб в базу данных: </b><br>
   <form>
 <p><input placeholder="Название клуба" name="name"></p>
-<p><input type="submit" formaction="/client/clubs" value="Отправить запрос" formmethod="post"></p>
+<p><input type="submit" formaction="/clubs" value="Отправить запрос" formmethod="post"></p>
 </form>
 </p>
 

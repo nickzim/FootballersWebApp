@@ -68,4 +68,35 @@ public class ClubsServlet extends HttpServlet {
             out.println("</html>");
         }
     }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+
+        if(service.deleteClub(request.getParameter("name"))) {
+            try(PrintWriter out = response.getWriter()) {
+                out.println("<html>");
+                out.println("<head><title>Клуб удален</title></head>");
+                out.println("<body>");
+                out.println("Клуб удален");
+                out.println("</body>");
+                out.println("</html>");
+            }
+
+        } else {
+
+            try(PrintWriter out = response.getWriter()) {
+                out.println("<html>");
+                out.println("<head><title>Ошибка при удалении клуба</title></head>");
+                out.println("<body>");
+                out.println("Ошибка при удалении клуба");
+                out.println("</body>");
+                out.println("</html>");
+            }
+        }
+    }
+
+
+
 }
