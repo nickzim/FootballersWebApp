@@ -14,17 +14,16 @@ public class DataBaseConnection {
 
     private final Logger log = Logger.getLogger(DataBaseConnection.class);
 
-    private final String url = "jdbc:postgresql://localhost:5432/footballersDB";
-    private final String username = "postgres";
-    private final String password = "root";
+    private final String URL = "jdbc:postgresql://localhost:5432/footballersDB";
+    private final String USERNAME = "postgres";
+    private final String PASSWORD = "root";
 
     public static DataBaseConnection getInstance() {
-        if (ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new DataBaseConnection();
-            return ourInstance;
-        } else {
-            return ourInstance;
         }
+
+        return ourInstance;
     }
 
     private DataBaseConnection() {
@@ -34,7 +33,7 @@ public class DataBaseConnection {
     public Connection getConnection(){
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             log.error("Error opening connection DB " + e.getMessage());
         }
@@ -43,6 +42,7 @@ public class DataBaseConnection {
     }
 
     public void closeConnection(){
+
         try {
             connection.close();
         } catch (SQLException e) {

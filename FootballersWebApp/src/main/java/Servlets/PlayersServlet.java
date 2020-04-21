@@ -31,25 +31,9 @@ public class PlayersServlet extends javax.servlet.http.HttpServlet {
                           request.getParameter("position"),
                           request.getParameter("club")))
         {
-            try(PrintWriter out = response.getWriter()) {
-                out.println("<html>");
-                out.println("<head><title>" + res.getString("success_responce") + "</title></head>");
-                out.println("<body>");
-                out.println(res.getString("success_responce"));
-                out.println("</body>");
-                out.println("</html>");
-            }
-
+            showResponsePage(response, res, "success_response");
         } else {
-
-            try(PrintWriter out = response.getWriter()) {
-                out.println("<html>");
-                out.println("<head><title>" + res.getString("error_responce") + "</title></head>");
-                out.println("<body>");
-                out.println(res.getString("error_responce"));
-                out.println("</body>");
-                out.println("</html>");
-            }
+            showResponsePage(response, res, "error_response");
         }
 
     }
@@ -87,7 +71,7 @@ public class PlayersServlet extends javax.servlet.http.HttpServlet {
         }
     }
 
-    @Override
+
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String lang = request.getParameter("lang");
         ResourceBundle res = ResourceBundle.getBundle("Players", "en".equalsIgnoreCase(lang) ? Locale.ENGLISH : Locale.getDefault());
@@ -117,6 +101,17 @@ public class PlayersServlet extends javax.servlet.http.HttpServlet {
                 out.println("</body>");
                 out.println("</html>");
             }
+        }
+    }
+
+    private static void showResponsePage(HttpServletResponse response, ResourceBundle res, String key) throws IOException {
+        try(PrintWriter out = response.getWriter()) {
+            out.println("<html>");
+            out.println("<head><title>" + res.getString(key) + "</title></head>");
+            out.println("<body>");
+            out.println(res.getString(key));
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

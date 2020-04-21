@@ -23,6 +23,13 @@
             <version>1.2.17</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-coyote</artifactId>
+            <version>10.0.0-M4</version>
+        </dependency>
+
+
 
     </dependencies>
 
@@ -35,11 +42,16 @@
                 <configuration>
                     <url>http://localhost/manager/text</url>
                     <server>TomcatServer</server>
+                    <port>80</port>
                     <username>admin</username>
-                    <password>admin</password>
+                    <password>123456</password>
                     <path>/</path>
                     <update>true</update>
+                    <httpsPort>8443</httpsPort>
+                    <keystoreFile>${basedir}\localhost-rsa.jks</keystoreFile>
+                    <keystorePass>1234567</keystorePass>
                 </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
